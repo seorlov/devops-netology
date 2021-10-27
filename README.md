@@ -1,4 +1,5 @@
 # devops-netology
+
 Благодаря содержимому файла \devops-netology\terraform\.gitignore будут проигнорированы:
 
 **/.terraform/* - всё содержимое каталога terraform
