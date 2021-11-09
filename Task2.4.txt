@@ -30,7 +30,6 @@ index 86d70e3e0..588d807b1 100644
 3. Сколько родителей у коммита b8d720? Напишите их хеши.
 
 Выполнена команда: git show b8d720^
-
 Выведены хэш двух предков Merge: 58dcac4b7 ffbcf5581
 
 -----------------
@@ -49,8 +48,26 @@ d5f9411f5 command: Fix bug when using terraform login on Windows
 dd01a3507 Update CHANGELOG.md
 225466bc3 Cleanup after v0.12.23 release
 
-
-
+----------------
 5. Найдите коммит в котором была создана функция func providerSource, ее определение в коде выглядит так func providerSource(...) (вместо троеточего перечислены аргументы).
+
+Выполнена команда: git log -1 -S'func providerSource('
+Выведен хэш коммита: 8c928e83589d90a031f811fae52a81be7153e82f
+
+---------------
+
 6. Найдите все коммиты в которых была изменена функция globalPluginDirs.
+
+Выполнена команда: git log -S'func globalPluginDirs' --oneline
+Выведен хэш коммита: 8364383c3 Push plugin discovery down into command package
+
+Был ещё вариант команды: git log -S'globalPluginDirs' --oneline, но он, видимо, не правильный, т.к. в этом случае будут искаться все коммиты, в которых функция вызывалась, а не только определялась.
+
+------------------
+
 7. Кто автор функции synchronizedWriters?
+
+Выполнена команда: git log -1 -S'func synchronizedWriters' --pretty=format:"%an"
+Выведено имя автора функции: James Bardin
+
+------------
