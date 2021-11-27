@@ -9,27 +9,27 @@
 
 4. Зомби-процессы отображаются в таблице процессов, но ресурсы ОС не занимают.
 
-5. `sudo apt update`
-`sudo apt install bpfcc-tools`
-`dpkg -L bpfcc-tools | grep sbin/opensnoop`
-`>/usr/sbin/opensnoop-bpfcc`
-`sudo /usr/sbin/opensnoop-bpfcc`
-`PID    COMM               FD ERR PATH
-900    vminfo              6   0 /var/run/utmp
-551    dbus-daemon        -1   2 /usr/local/share/dbus-1/system-services
-551    dbus-daemon        18   0 /usr/share/dbus-1/system-services
-551    dbus-daemon        -1   2 /lib/dbus-1/system-services
+5. `sudo apt update`\
+`sudo apt install bpfcc-tools`\
+`dpkg -L bpfcc-tools | grep sbin/opensnoop`\
+`>/usr/sbin/opensnoop-bpfcc`\
+`sudo /usr/sbin/opensnoop-bpfcc`\
+PID    COMM               FD ERR PATH\
+900    vminfo              6   0 /var/run/utmp\
+551    dbus-daemon        -1   2 /usr/local/share/dbus-1/system-services\
+551    dbus-daemon        18   0 /usr/share/dbus-1/system-services\
+551    dbus-daemon        -1   2 /lib/dbus-1/system-services\
+551    dbus-daemon        18   0 /var/lib/snapd/dbus-1/system-services/\
+900    vminfo              6   0 /var/run/utmp\
+551    dbus-daemon        -1   2 /usr/local/share/dbus-1/system-services\
+551    dbus-daemon        18   0 /usr/share/dbus-1/system-services\
+551    dbus-daemon        -1   2 /lib/dbus-1/system-services\
+551    dbus-daemon        18   0 /var/lib/snapd/dbus-1/system-services/\
+900    vminfo              6   0 /var/run/utmp\
+551    dbus-daemon        -1   2 /usr/local/share/dbus-1/system-services\
+551    dbus-daemon        18   0 /usr/share/dbus-1/system-services\
+551    dbus-daemon        -1   2 /lib/dbus-1/system-services\
 551    dbus-daemon        18   0 /var/lib/snapd/dbus-1/system-services/
-900    vminfo              6   0 /var/run/utmp
-551    dbus-daemon        -1   2 /usr/local/share/dbus-1/system-services
-551    dbus-daemon        18   0 /usr/share/dbus-1/system-services
-551    dbus-daemon        -1   2 /lib/dbus-1/system-services
-551    dbus-daemon        18   0 /var/lib/snapd/dbus-1/system-services/
-900    vminfo              6   0 /var/run/utmp
-551    dbus-daemon        -1   2 /usr/local/share/dbus-1/system-services
-551    dbus-daemon        18   0 /usr/share/dbus-1/system-services
-551    dbus-daemon        -1   2 /lib/dbus-1/system-services
-551    dbus-daemon        18   0 /var/lib/snapd/dbus-1/system-services/`
 
 6. Системный вызов `uname()`.
 `Part of the utsname information is also accessible  via  /proc/sys/kernel/{ostype, hostname, osrelease, version, domainname}.`
