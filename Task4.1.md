@@ -1,60 +1,68 @@
-#Домашнее задание к занятию "3.9. Элементы безопасности информационных систем"
+#Домашнее задание к занятию "4.1. Командная оболочка Bash: Практические навыки"
 
->1. Установите Bitwarden плагин для браузера. Зарегестрируйтесь и сохраните несколько паролей.  
+>Обязательная задача 1  
+Есть скрипт:  
+a=1  
+b=2  
+c=a+b  
+d=$a+$b  
+e=$(($a+$b))  
+Какие значения переменным c,d,e будут присвоены? Почему?  
 
-https://github.com/seorlov/devops-netology/blob/main/Task3.9.png  
+Переменная	Значение	Обоснование  
+c	a+b Переменной с присваивается строка "a+b", а не сумма переменных.  
+d	1+2	Переменной d присваивается стока с подстановкой значений переменных a и b.  
+e	3	В переменной уже полностью соблюдён синтаксис для вычисления арифметической операции 1+2  
 
->2. Установите Google authenticator на мобильный телефон. Настройте вход в Bitwarden акаунт через Google authenticator OTP.
+>Обязательная задача 2  
+На нашем локальном сервере упал сервис и мы написали скрипт, который постоянно проверяет его доступность, записывая дату проверок до тех пор, пока сервис не станет доступным. В скрипте допущена ошибка, из-за которой выполнение не может завершиться, при этом место на Жёстком Диске постоянно уменьшается. Что необходимо сделать, чтобы его исправить:  
+while ((1==1)  
+do  
+	curl https://localhost:4757  
+	if (($? != 0))  
+	then  
+		date >> curl.log  
+	fi  
+done  
 
-Давно пользуюсь Microsoft authenticator. На скриншоте запос кода из Bitwarden. Microsoft authenticator скриншоты делать не позволяет:    
-https://github.com/seorlov/devops-netology/blob/main/Task3.9.2.png
+Исправлены ошибки синтаксиса, добавлена пауза 5 сек:  
+while ((1==1))  
+do  
+	curl https://localhost:4757  
+	if (($? != 0))  
+    then  
+    	date >> curl.log  
+	fi  
+    sleep 5  
+done  
 
+>Необходимо написать скрипт, который проверяет доступность трёх IP: 192.168.0.1, 173.194.222.113, 87.250.250.242 по 80 порту и записывает результат в файл log. Проверять доступность необходимо пять раз для каждого узла.  
+ 
+n=1  
+array_ip=(192.168.0.1 173.194.222.113 87.250.250.242)  
+while ((n<=5))    
+do    
+	for s in ${array_ip[@]}  
+	do  
+		curl -v http://$s:80  
+		echo http://$s:80" - "$? >> curl3.log  
+	done  
+	let "n+=1"  
+done      
 
->3. Установите apache2, сгенерируйте самоподписанный сертификат, настройте тестовый сайт для работы по HTTPS.
+>Обязательная задача 3  
+Необходимо дописать скрипт из предыдущего задания так, чтобы он выполнялся до тех пор, пока один из узлов не окажется недоступным. Если любой из узлов недоступен - IP этого узла пишется в файл error, скрипт прерывается.  
 
-vagrant@vagrant:~$ sudo apt install apache2  
-vagrant@vagrant:~$ sudo a2enmod ssl  
-vagrant@vagrant:~$ sudo systemctl restart apache2  
-vagrant@vagrant:~$ sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 \  
- -keyout /etc/ssl/private/apache-selfsigned.key \
--out /etc/ssl/certs/apache-selfsigned.crt \  
- -subj "/C=RU/ST=Moscow/L=Moscow/O=Company Name/OU=Org/CN=localhost"    
-Generating a RSA private key  
-.................................................................+++++  
-.+++++  
-writing new private key to '/etc/ssl/private/apache-selfsigned.key'  
------    
-vagrant@vagrant:/var/www$ sudo mkdir serg    
-vagrant@vagrant:/var/www$ cd serg  
-vagrant@vagrant:/var/www/serg$ sudo vim index.html  
-  `<h1>it worked!</h1>`    
-vagrant@vagrant:/var/www/serg$ sudo a2ensite serg.conf  
-Enabling site serg.  
-To activate the new configuration, you need to run:  
-  systemctl reload apache2  
-vagrant@vagrant:/var/www/serg$ sudo apache2ctl configtest  
-Syntax OK  
-vagrant@vagrant:/var/www/serg$ sudo systemctl reload apache2  
-
-> 4. Проверьте на TLS уязвимости произвольный сайт в интернете (кроме сайтов МВД, ФСБ, МинОбр, НацБанк, РосКосмос, РосАтом, РосНАНО и любых госкомпаний, объектов КИИ, ВПК ... и тому подобное).
-
-vagrant@vagrant:/$ sudo git clone --depth 1 https://github.com/drwetter/testssl.sh.git  
-Cloning into 'testssl.sh'...  
-vagrant@vagrant:/$ cd testssl.sh  
-vagrant@vagrant:/testssl.sh$ ./testssl.sh -e --fast --parallel https://www.google.com/  
-
-testssl.sh       3.1dev from https://testssl.sh/dev/  
-(6da72bc 2021-12-10 20:16:28 -- )  
-..................  
-
-> 5. Установите на Ubuntu ssh сервер, сгенерируйте новый приватный ключ. Скопируйте свой публичный ключ на другой сервер. Подключитесь к серверу по SSH-ключу.
-
-
-
-> 6. Переименуйте файлы ключей из задания 5. Настройте файл конфигурации SSH клиента, так чтобы вход на удаленный сервер осуществлялся по имени сервера.
-
-
-
->7. Соберите дамп трафика утилитой tcpdump в формате pcap, 100 пакетов. Откройте файл pcap в Wireshark.
-
-
+array_ip=(192.168.0.1 173.194.222.113 87.250.250.242)  
+while ((1==1))    
+do    
+	for s in ${array_ip[@]}  
+	do  
+		curl -v http://$s:80  
+		if (($?!=0))  
+		then  
+			echo $s >> error.log  
+			exit  
+		fi  
+	done  
+done    
