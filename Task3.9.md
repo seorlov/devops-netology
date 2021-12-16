@@ -1,17 +1,18 @@
 #Домашнее задание к занятию "3.9. Элементы безопасности информационных систем"
 
->1. Установите Bitwarden плагин для браузера. Зарегестрируйтесь и сохраните несколько паролей.  
+1. Установите Bitwarden плагин для браузера. Зарегестрируйтесь и сохраните несколько паролей.  
 
-https://github.com/seorlov/devops-netology/blob/main/Task3.9.png  
+>![Скриншот](https://github.com/seorlov/devops-netology/blob/main/Task3.9.png "Скриншот")
 
->2. Установите Google authenticator на мобильный телефон. Настройте вход в Bitwarden акаунт через Google authenticator OTP.
+2. Установите Google authenticator на мобильный телефон. Настройте вход в Bitwarden акаунт через Google authenticator OTP.
 
-Давно пользуюсь Microsoft authenticator. На скриншоте запос кода из Bitwarden. Microsoft authenticator скриншоты делать не позволяет:    
-https://github.com/seorlov/devops-netology/blob/main/Task3.9.2.png
+>Давно пользуюсь Microsoft authenticator. На скриншоте подтверждение включения двухфактороной аутентификации из Bitwarden. Microsoft authenticator скриншоты делать не позволяет:      
+>![Скриншот](https://github.com/seorlov/devops-netology/blob/main/Task3.9.2.png "Скриншот")
 
 
->3. Установите apache2, сгенерируйте самоподписанный сертификат, настройте тестовый сайт для работы по HTTPS.
+3. Установите apache2, сгенерируйте самоподписанный сертификат, настройте тестовый сайт для работы по HTTPS.
 
+```bash
 vagrant@vagrant:~$ sudo apt install apache2  
 vagrant@vagrant:~$ sudo a2enmod ssl  
 vagrant@vagrant:~$ sudo systemctl restart apache2  
@@ -35,9 +36,11 @@ To activate the new configuration, you need to run:
 vagrant@vagrant:/var/www/serg$ sudo apache2ctl configtest  
 Syntax OK  
 vagrant@vagrant:/var/www/serg$ sudo systemctl reload apache2  
+```
 
-> 4. Проверьте на TLS уязвимости произвольный сайт в интернете (кроме сайтов МВД, ФСБ, МинОбр, НацБанк, РосКосмос, РосАтом, РосНАНО и любых госкомпаний, объектов КИИ, ВПК ... и тому подобное).
+4. Проверьте на TLS уязвимости произвольный сайт в интернете (кроме сайтов МВД, ФСБ, МинОбр, НацБанк, РосКосмос, РосАтом, РосНАНО и любых госкомпаний, объектов КИИ, ВПК ... и тому подобное).
 
+```bash
 vagrant@vagrant:/$ sudo git clone --depth 1 https://github.com/drwetter/testssl.sh.git  
 Cloning into 'testssl.sh'...  
 vagrant@vagrant:/$ cd testssl.sh  
@@ -46,10 +49,12 @@ vagrant@vagrant:/testssl.sh$ ./testssl.sh -e --fast --parallel https://www.googl
 testssl.sh       3.1dev from https://testssl.sh/dev/  
 (6da72bc 2021-12-10 20:16:28 -- )  
 ..................  
+```
 
-> 5. Установите на Ubuntu ssh сервер, сгенерируйте новый приватный ключ. Скопируйте свой публичный ключ на другой сервер. Подключитесь к серверу по SSH-ключу.
+5. Установите на Ubuntu ssh сервер, сгенерируйте новый приватный ключ. Скопируйте свой публичный ключ на другой сервер. Подключитесь к серверу по SSH-ключу.
 
-Поднял 2 машины в Вагратне. На первой выполнил:  
+>Поднял 2 машины в Вагратне. На первой выполнил:  
+```bash
 vagrant@vagrant:~$ sudo apt install openssh-server  
 vagrant@vagrant:~$ systemctl start sshd.service  
 vagrant@vagrant:~$ sudo systemctl enable sshd.service  
@@ -87,8 +92,9 @@ Welcome to Ubuntu 20.04.3 LTS (GNU/Linux 5.4.0-91-generic x86_64)
 This system is built by the Bento project by Chef Software  
 More information can be found at https://github.com/chef/bento  
 Last login: Wed Dec 15 21:26:25 2021 from 10.0.2.2  
+```
 
-> 6. Переименуйте файлы ключей из задания 5. Настройте файл конфигурации SSH клиента, так чтобы вход на удаленный сервер осуществлялся по имени сервера.
+6. Переименуйте файлы ключей из задания 5. Настройте файл конфигурации SSH клиента, так чтобы вход на удаленный сервер осуществлялся по имени сервера.
 
 ```bash
 vagrant@vagrant:~/.ssh$ mv id_rsa test.key  
@@ -121,7 +127,7 @@ More information can be found at https://github.com/chef/bento
 Last login: Thu Dec 16 07:52:02 2021 from 10.0.2.2
 ```
 
->7. Соберите дамп трафика утилитой tcpdump в формате pcap, 100 пакетов. Откройте файл pcap в Wireshark.
+7. Соберите дамп трафика утилитой tcpdump в формате pcap, 100 пакетов. Откройте файл pcap в Wireshark.
 
 ```bash
 vagrant@vagrant:~$ sudo tcpdump -w 0001.pcap -c 100 -i eth0
@@ -130,4 +136,5 @@ tcpdump: listening on eth0, link-type EN10MB (Ethernet), capture size 262144 byt
 121 packets received by filter
 0 packets dropped by kernel
 ```
-https://github.com/seorlov/devops-netology/blob/main/Task3.9.7.png
+>![Скриншот](https://github.com/seorlov/devops-netology/blob/main/Task3.9.7.png "Скриншот")
+
